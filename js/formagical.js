@@ -41,7 +41,7 @@
           message += ' <small>after</small> <strong>' + (label / 1024).toFixed(2) + ' seconds</strong> ';
 
         if (typeof o != 'undefined')
-          message += ' <small>and changed from </small> <strong>' + o + '</strong>';
+          message += ' <small>and changed </small> <strong>' + o + '</strong>';
 
 
         $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
@@ -84,7 +84,7 @@
             var currentValue = $(this).val();
             var previousValue = $(this).data('valueBeforeFocus');
             var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
-            var change = (currentValue == previousValue) ? ' has not changed' : changeVal;
+            var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
             that.settings.track.call(that, elementName, 'focusOut', n - $(this).data('startFocus'), change);
 
@@ -93,15 +93,29 @@
           $(this).keydown(function () {
             var d = new Date();
             var n = d.getTime();
+            var currentValue = $(this).val();
+            var previousValue = $(this).data('valueBeforeFocus');
+            var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
+            var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
+
+            // This is the first time the user typed in this element
             if (!$(this).data('userStartedTypingInThisBox')) {
               var msg = 'Started typing';
               that.settings.track.call(that, elementName, msg, n - $(this).data('userStartedFocusingAt'));
               $(this).data('userStartedTypingInThisBox', true);
             }
 
-            var d = new Date();
-            var n = d.getTime();
+            // If user paused for a while
+            var howManyMilliSecsAreAPause = 1500;
+
+            if((n - $(this).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause) {
+              that.settings.track.call(that, elementName, 'there was a pause', (n - $(this).data('lastTimeTypingInThisBox')), changeVal);
+
+            }
+
+
+            $(this).data('lastTimeTypingInThisBox', n);
 
 
           })
