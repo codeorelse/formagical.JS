@@ -1,4 +1,4 @@
-describe 'PluginName', ->
+describe 'formagical', ->
   options =
     message: 'Hello World'
 
@@ -8,24 +8,24 @@ describe 'PluginName', ->
 
   describe 'plugin behavior', ->
     it 'should be available on the jQuery object', ->
-      expect( $.fn.pluginName ).toBeDefined()
+      expect( $.fn.formagical ).toBeDefined()
 
     it 'should be chainable', ->
-      expect( @$element.pluginName() ).toBe @$element
+      expect( @$element.formagical() ).toBe @$element
 
     it 'should offers default values', ->
-      plugin = new $.pluginName( @$element )
+      plugin = new $.formagical( @$element )
 
       expect( plugin.defaults ).toBeDefined()
 
     it 'should overwrites the settings', ->
-      plugin = new $.pluginName( @$element, options )
+      plugin = new $.formagical( @$element, options )
 
       expect( plugin.settings.message ).toBe( options.message )
 
   describe 'plugin state', ->
     beforeEach ->
-      @plugin = new $.pluginName( @$element )
+      @plugin = new $.formagical( @$element )
 
     it 'should have a ready state', ->
       expect( @plugin.getState() ).toBe 'ready'

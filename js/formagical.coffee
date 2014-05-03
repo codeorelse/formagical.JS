@@ -1,13 +1,12 @@
 #
-# Name    : <plugin name>
-# Author  : <your name>, <your website url>, <twitter handle>
-# Version : <version number>
-# Repo    : <repo url>
-# Website : <website url>
+# Name    : Formagical
+# Author  : Siebe Hiemstra @code_or_else
+# Version : 0.1
+# Repo    : https://github.com/codeorelse/formagical
 #
 
 jQuery ->
-  $.pluginName = ( element, options ) ->
+  $.formagical = ( element, options ) ->
     # current state
     state = ''
 
@@ -43,11 +42,11 @@ jQuery ->
     this
 
   # default plugin settings
-  $.pluginName::defaults =
+  $.formagical::defaults =
       message: 'Hello world'  # option description
 
-  $.fn.pluginName = ( options ) ->
+  $.fn.formagical = ( options ) ->
     this.each ->
-      if $( this ).data( 'pluginName' ) is undefined
-        plugin = new $.pluginName( this, options )
-        $( this).data( 'pluginName', plugin )
+      if $( this ).data( 'formagical' ) is undefined
+        plugin = new $.formagical( this, options )
+        $( this).data( 'formagical', plugin )

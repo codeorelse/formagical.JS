@@ -1,6 +1,6 @@
 (function() {
   jQuery(function() {
-    $.pluginName = function(element, options) {
+    $.formagical = function(element, options) {
       var state;
       state = '';
       this.settings = {};
@@ -27,15 +27,15 @@
       this.init();
       return this;
     };
-    $.pluginName.prototype.defaults = {
+    $.formagical.prototype.defaults = {
       message: 'Hello world'
     };
-    return $.fn.pluginName = function(options) {
+    return $.fn.formagical = function(options) {
       return this.each(function() {
         var plugin;
-        if ($(this).data('pluginName') === void 0) {
-          plugin = new $.pluginName(this, options);
-          return $(this).data('pluginName', plugin);
+        if ($(this).data('formagical') === void 0) {
+          plugin = new $.formagical(this, options);
+          return $(this).data('formagical', plugin);
         }
       });
     };
