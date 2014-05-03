@@ -137,8 +137,10 @@
           $(this).focus(function () {
             var d = new Date();
             var n = d.getTime();
+
             $(this).data('userStartedTypingInThisBox', false);
             $(this).data('userStartedFocusingAt', n);
+            $(this).data('lastTimeTypingInThisBox', n);
 
             that.setMostRecentFocusedElement(elementName);
             $(this).data('startFocus', n);
