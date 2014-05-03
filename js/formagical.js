@@ -98,7 +98,6 @@
             var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
-
             // This is the first time the user typed in this element
             if (!$(this).data('userStartedTypingInThisBox')) {
               var msg = 'Started typing';
@@ -107,15 +106,27 @@
             }
 
             // If user paused for a while
-            var howManyMilliSecsAreAPause = 1500;
 
-            if((n - $(this).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause) {
-              that.settings.track.call(that, elementName, 'there was a pause', (n - $(this).data('lastTimeTypingInThisBox')), changeVal);
+
+            var t = this;
+
+            var howManyMilliSecsAreAPause = 1500;
+            var c = $(t).val();
+            console.log(n, $(t).data('lastTimeTypingInThisBox'));
+
+            if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause) {
+
+              that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
+
 
             }
 
+            $(t).data('lastTimeTypingInThisBox', n);
 
-            $(this).data('lastTimeTypingInThisBox', n);
+
+
+
+            $(this).data('valueBeforeFocus', $(this).val());
 
 
           })
@@ -172,7 +183,12 @@
             var elementName = $(this).attr('name');
             var d = new Date();
             var n = d.getTime();
-            var timeSinceLastChange = $(this).data('lastTimeSelectionTime') ? (n - $(this).data('lastTimeSelectionTime')) : 0;
+
+            if ($(this).data('lastTimeSelectionTime'))
+              var timeSinceLastChange = $(this).data('lastTimeSelectionTime') ? (n - $(this).data('lastTimeSelectionTime')) : 0;
+            else
+              var timeSinceLastChange = $(this).data('startFocus') ? (n - $(this).data('startFocus')) : 0;
+
             var currentValue = $(this).val();
             var previousValue = $(this).data('valueBeforeFocus');
             var changeVal = 'from ' + (previousValue === '' ? 'nothing' : previousValue) + ' to ' + currentValue;
@@ -190,7 +206,7 @@
 
 
         $(window).bind('beforeunload', function () {
-          var elementBeforeLeaving = that.mostRecentFocusedElement == null ? 'None' : this.mostRecentFocusedElement;
+          var elementBeforeLeaving = that.getMostRecentFocusedElement();
           var d = new Date();
           var n = d.getTime();
 
