@@ -9,7 +9,7 @@ h1 {
   line-height: 48px;
   font-weight: 100;
   letter-spacing: 1px;
-  border-bottom: 1px solid #3c3c3c;
+  padding-bottom: 1em;
 }
 
 h1 strong {

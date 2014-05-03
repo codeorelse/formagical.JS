@@ -3,32 +3,113 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Plugin Name</title>
+  <title>Formagic by Blue Mango Interactive </title>
   <link rel="stylesheet" href="css/site.css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+
   <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <script>
+var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-3972515-6']);
+            _gaq.push(['_setDomainName', '.m-ms.nl']);
+            _gaq.push(['_setAllowLinker', true]);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+
+</script>
 </head>
 
 <body>
 
+
   <div id="container">
-    <header>
-      <h1>Plugin Name</h1>
-    </header>
+
+      <h1>Formagic <small>by Blue Mango Interactive</small></h1>
 
     <div id="main">
+
+
+<div class="alert alert-info">Use the form, and let the awesome stats arrive.</div>
+
+<form class="form-horizontal" role="form" name="great-form">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Your name bitte">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Email address</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="Emailaddress" id="inputPassword3" placeholder="Email address">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="Address" id="address" placeholder="Address">
+    </div>
+  </div>
+<div class="form-group">
+  <label for="opts" class="col-sm-2 control-label">Some options</label>
+  <div class="col-sm-10">
+     <select class="form-control" name ="numberOptions">
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+  </div>
+</div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="agreeOnEverything"> I agree with anyyyyything
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="suBlue Mango Interactivet" class="btn btn-default">Sign in</button>
+    </div>
+  </div>
+</form>
+
     </div>
 
     <footer>
+      <div id="messages">
+  <h2>Events:</h2>
+  <h3>This are the events that will be available in Google Analytics</h3>
+  <ul style="list-group"></ul>
+      </div>
     </footer>
   </div>
 
   <script src="js/libs/jquery.js"></script>
-  <script src="js/pluginName.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="dist/formagical.min.js"></script>
   <script>
   $( function() {
-    $( '#main' ).pluginName( {
+    $( 'form' ).formagical( {
       message: 'Hello World'
     } );
   } );
