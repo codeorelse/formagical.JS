@@ -35,6 +35,7 @@
         return this.settings[key];
       };
       this.trackInAnalytics = function (element, type, label, o) {
+        /* For debugging purposes only now */
         var message = '<strong>' + element + '</strong><small> had interaction </small><strong>' + type + '</strong>';
 
         if (typeof label != 'undefined' || label == 0)
@@ -43,11 +44,7 @@
         if (typeof o != 'undefined')
           message += ' <small>and changed </small> <strong>' + o + '</strong>';
 
-
         $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
-
-
-        console.log(element, type, label, o)
       };
 
       this.callSettingFunction = function (name, args) {
@@ -106,8 +103,6 @@
             }
 
             // If user paused for a while
-
-
             var t = this;
 
             var howManyMilliSecsAreAPause = 1500;
@@ -115,24 +110,12 @@
             console.log(n, $(t).data('lastTimeTypingInThisBox'));
 
             if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause) {
-
               that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
-
-
             }
 
             $(t).data('lastTimeTypingInThisBox', n);
-
-
-
-
             $(this).data('valueBeforeFocus', $(this).val());
-
-
           })
-
-
-
 
           $(this).focus(function () {
             var d = new Date();
@@ -172,9 +155,7 @@
 
 
             that.settings.track.call(that, elementName, 'changed', undefined, change);
-
             $(this).data('valueBeforeFocus', $(this).prop('checked'));
-
             that.setMostRecentFocusedElement(elementName);
 
           })
@@ -202,7 +183,6 @@
             $(this).data('lastTimeSelectionTime', n);
 
             that.setMostRecentFocusedElement(elementName);
-
           })
         })
 
