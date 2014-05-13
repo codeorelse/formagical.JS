@@ -45,6 +45,8 @@
           message += ' <small>and changed </small> <strong>' + o + '</strong>';
 
         $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
+
+        _gaq.push(['_trackEvent', element, type, o, message, true]);
       };
 
       this.callSettingFunction = function (name, args) {
@@ -83,15 +85,17 @@
             var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
-            that.settings.track.call(that, elementName, 'focusOut', n - $(this).data('startFocus'), change);
+            $(this).data('valueBeforeFocus', currentValue);
+            console.log(currentValue, previousValue);
 
+            that.settings.track.call(that, elementName, 'focusOut', n - $(this).data('startFocus'), change);
           })
 
           $(this).keydown(function () {
             var d = new Date();
             var n = d.getTime();
             var currentValue = $(this).val();
-            var previousValue = $(this).data('valueBeforeFocus');
+            var previousValue = $(this).data('valueBeforeTyping');
             var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
@@ -99,22 +103,24 @@
             if (!$(this).data('userStartedTypingInThisBox')) {
               var msg = 'Started typing';
               that.settings.track.call(that, elementName, msg, n - $(this).data('userStartedFocusingAt'));
-              $(this).data('userStartedTypingInThisBox', true);
             }
 
             // If user paused for a while
             var t = this;
 
-            var howManyMilliSecsAreAPause = 1500;
+            var howManyMilliSecsAreAPause = that.settings.howManyMilliSecsAreAPause;
             var c = $(t).val();
-            console.log(n, $(t).data('lastTimeTypingInThisBox'));
 
-            if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause) {
-              that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
+            if(that.settings.trackPauses){
+              if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause && ($(this).data('userStartedTypingInThisBox'))) {
+                that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
+              }
             }
 
             $(t).data('lastTimeTypingInThisBox', n);
-            $(this).data('valueBeforeFocus', $(this).val());
+            $(this).data('valueBeforeTyping', $(this).val());
+
+            $(this).data('userStartedTypingInThisBox', true);
           })
 
           $(this).focus(function () {
@@ -152,7 +158,6 @@
             var previousValue = !currentValue;
             var changeVal = 'from ' + (previousValue === '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' has not changed' : changeVal;
-
 
             that.settings.track.call(that, elementName, 'changed', undefined, change);
             $(this).data('valueBeforeFocus', $(this).prop('checked'));
@@ -197,7 +202,7 @@
           if (that.submitted)
             return
 
-          return 'Je doet nog niet mee voor de grote prijs. Waarom ga je dan weg? Please stay.';
+          return that.settings.leaveMessage;
         });
 
         return this.setState('ready');
@@ -206,7 +211,9 @@
       return this;
     };
     $.formagical.prototype.defaults = {
-      message: 'Hello world',
+      leaveMessage: 'Je hebt het formulier nog niet verstuurd. Als je nu doorgaat ben je alle ingevulde gegevens kwijt.',
+      howManyMilliSecsAreAPause: 1500,
+      trackPauses: true,
       track: function (element, type, label, optional) {
         return this.trackInAnalytics(element, type, label, optional);
       }
