@@ -28,6 +28,20 @@
         return mostRecentFocusedElement;
       }
       this.setMostRecentFocusedElement = function (element) {
+
+
+        if(typeof mostRecentFocusedElement === 'undefined') {
+          var that = this;
+
+          var d = new Date();
+        var n = d.getTime();
+
+
+
+          this.settings.track.call(that, $(that.$element).attr('name'), 'User started using form', n - that.startTime );
+        }
+
+
         mostRecentFocusedElement = element;
       }
 
@@ -49,7 +63,9 @@
 
         // $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
 
-        if(typeof label === 'undefined') label = 0
+        if(typeof label === 'undefined' || label == NaN) {
+          label = 0;
+        }
 
         console.log(type, element, (label / 1024).toFixed(2));
 
@@ -71,8 +87,9 @@
         var n = d.getTime();
 
         this.startTime = n;
+        this.elementName = $(that.$element).attr('name');
 
-        that.settings.track.call(that, $(that.$element).attr('name'), 'ready for awesome stats');
+        that.settings.track.call(that, $(that.$element).attr('name'), 'Form ready for stats');
 
         if (typeof ga === 'undefined')
           throw new Error('Add GA to your page.')
