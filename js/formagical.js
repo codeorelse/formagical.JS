@@ -36,17 +36,25 @@
       };
       this.trackInAnalytics = function (element, type, label, o) {
         /* For debugging purposes only now */
-        var message = '<strong>' + element + '</strong><small> had interaction </small><strong>' + type + '</strong>';
+        // var message = '<strong>' + element + '</strong><small> had interaction </small><strong>' + type + '</strong>';
 
-        if (typeof label != 'undefined' || label == 0)
-          message += ' <small>after</small> <strong>' + (label / 1024).toFixed(2) + ' seconds</strong> ';
+        // if (typeof label != 'undefined' || label == 0) {
+        //   message += ' <small>after</small> <strong>' + (label / 1024).toFixed(2) + ' seconds</strong> ';
+        // } else {
+        //   label = 0;
+        // }
 
-        if (typeof o != 'undefined')
-          message += ' <small>and changed </small> <strong>' + o + '</strong>';
+        // if (typeof o != 'undefined')
+        //   message += ' <small>and changed </small> <strong>' + o + '</strong>';
 
-        $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
+        // $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
 
-        _gaq.push(['_trackEvent', element, type, o, message, true]);
+        if(typeof label === 'undefined') label = 0
+
+        console.log(type, element, (label / 1024).toFixed(2));
+
+        ga('send', 'event', 'formagical', type, element, (label / 1024).toFixed(2));
+
       };
 
       this.callSettingFunction = function (name, args) {
@@ -66,7 +74,7 @@
 
         that.settings.track.call(that, $(that.$element).attr('name'), 'ready for awesome stats');
 
-        if (typeof _gaq === 'undefined')
+        if (typeof ga === 'undefined')
           throw new Error('Add GA to your page.')
 
         this.$element.find('input, textarea, select').not('[type=checkbox],[type=submit]').each(function () {
@@ -86,7 +94,6 @@
             var change = (currentValue == previousValue) ? ' nothing' : changeVal;
 
             $(this).data('valueBeforeFocus', currentValue);
-            console.log(currentValue, previousValue);
 
             that.settings.track.call(that, elementName, 'focusOut', n - $(this).data('startFocus'), change);
           })
@@ -192,18 +199,18 @@
         })
 
 
-        $(window).bind('beforeunload', function () {
-          var elementBeforeLeaving = that.getMostRecentFocusedElement();
-          var d = new Date();
-          var n = d.getTime();
+        // $(window).bind('beforeunload', function () {
+        //   var elementBeforeLeaving = that.getMostRecentFocusedElement();
+        //   var d = new Date();
+        //   var n = d.getTime();
 
-          that.settings.track.call(that, elementBeforeLeaving, 'user leaves', n - that.startTime);
+        //   that.settings.track.call(that, elementBeforeLeaving, 'user leaves', n - that.startTime);
 
-          if (that.submitted)
-            return
+        //   if (that.submitted)
+        //     return
 
-          return that.settings.leaveMessage;
-        });
+        //   return that.settings.leaveMessage;
+        // });
 
         return this.setState('ready');
       };
