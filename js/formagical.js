@@ -30,17 +30,14 @@
       this.setMostRecentFocusedElement = function (element) {
 
 
-        if(typeof mostRecentFocusedElement === 'undefined') {
+        if (typeof mostRecentFocusedElement === 'undefined') {
           var that = this;
 
           var d = new Date();
-        var n = d.getTime();
+          var n = d.getTime();
 
-
-
-          this.settings.track.call(that, $(that.$element).attr('name'), 'User started using form', n - that.startTime );
+          this.settings.track.call(that, $(that.$element).attr('name'), 'User started using form', n - that.startTime);
         }
-
 
         mostRecentFocusedElement = element;
       }
@@ -49,21 +46,8 @@
         return this.settings[key];
       };
       this.trackInAnalytics = function (element, type, label, o) {
-        /* For debugging purposes only now */
-        // var message = '<strong>' + element + '</strong><small> had interaction </small><strong>' + type + '</strong>';
 
-        // if (typeof label != 'undefined' || label == 0) {
-        //   message += ' <small>after</small> <strong>' + (label / 1024).toFixed(2) + ' seconds</strong> ';
-        // } else {
-        //   label = 0;
-        // }
-
-        // if (typeof o != 'undefined')
-        //   message += ' <small>and changed </small> <strong>' + o + '</strong>';
-
-        // $('#messages ul').prepend('<li class="list-group-item alert alert-success">' + message + '</li>');
-
-        if(typeof label === 'undefined' || label == NaN) {
+        if (typeof label === 'undefined' || label == NaN) {
           label = 0;
         }
 
@@ -135,7 +119,7 @@
             var howManyMilliSecsAreAPause = that.settings.howManyMilliSecsAreAPause;
             var c = $(t).val();
 
-            if(that.settings.trackPauses){
+            if (that.settings.trackPauses) {
               if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause && ($(this).data('userStartedTypingInThisBox'))) {
                 that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
               }
@@ -214,21 +198,6 @@
             that.setMostRecentFocusedElement(elementName);
           })
         })
-
-
-        // $(window).bind('beforeunload', function () {
-        //   var elementBeforeLeaving = that.getMostRecentFocusedElement();
-        //   var d = new Date();
-        //   var n = d.getTime();
-
-        //   that.settings.track.call(that, elementBeforeLeaving, 'user leaves', n - that.startTime);
-
-        //   if (that.submitted)
-        //     return
-
-        //   return that.settings.leaveMessage;
-        // });
-
         return this.setState('ready');
       };
       this.init();
