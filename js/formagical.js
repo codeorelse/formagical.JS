@@ -53,7 +53,7 @@
 
         console.log(type, element, (label / 1024).toFixed(2));
 
-        ga('send', 'event', 'formagical', type, element, (label / 1024).toFixed(2));
+        ga('send', 'event', 'formagical', type, element, parseFloat((label / 1024).toFixed(2)));
 
       };
 
@@ -78,6 +78,47 @@
         if (typeof ga === 'undefined')
           throw new Error('Add GA to your page.')
 
+
+
+          this.$element.find('input, textarea').not('[type=checkbox],[type=submit]').each(function () {
+              var elementName = $(this).attr('name');
+              $(this).keydown(function (e) {
+                  // Don't log tabs and tabs
+                  if(e.keyCode === 9 || e.keyCode == 27) return;
+                  var d = new Date();
+                  var n = d.getTime();
+                  var currentValue = $(this).val();
+                  var previousValue = $(this).data('valueBeforeTyping');
+                  var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
+                  var change = (currentValue == previousValue) ? ' nothing' : changeVal;
+
+                  // This is the first time the user typed in this element
+                  if (!$(this).data('userStartedTypingInThisBox')) {
+                      var msg = 'Started typing';
+                      that.settings.track.call(that, elementName, msg, n - $(this).data('userStartedFocusingAt'));
+                  }
+
+                  // If user paused for a while
+                  var t = this;
+
+                  var howManyMilliSecsAreAPause = that.settings.howManyMilliSecsAreAPause;
+                  var c = $(t).val();
+
+                  if (that.settings.trackPauses) {
+                      if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause && ($(this).data('userStartedTypingInThisBox'))) {
+                          that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
+                      }
+                  }
+
+                  $(t).data('lastTimeTypingInThisBox', n);
+                  $(this).data('valueBeforeTyping', $(this).val());
+
+                  $(this).data('userStartedTypingInThisBox', true);
+              })
+
+          });
+
+
         this.$element.find('input, textarea, select').not('[type=checkbox],[type=submit]').each(function () {
           var elementName = $(this).attr('name');
 
@@ -97,38 +138,6 @@
             $(this).data('valueBeforeFocus', currentValue);
 
             that.settings.track.call(that, elementName, 'focusOut', n - $(this).data('startFocus'), change);
-          })
-
-          $(this).keydown(function () {
-            var d = new Date();
-            var n = d.getTime();
-            var currentValue = $(this).val();
-            var previousValue = $(this).data('valueBeforeTyping');
-            var changeVal = 'from ' + (previousValue == '' ? 'nothing' : previousValue) + ' to ' + currentValue;
-            var change = (currentValue == previousValue) ? ' nothing' : changeVal;
-
-            // This is the first time the user typed in this element
-            if (!$(this).data('userStartedTypingInThisBox')) {
-              var msg = 'Started typing';
-              that.settings.track.call(that, elementName, msg, n - $(this).data('userStartedFocusingAt'));
-            }
-
-            // If user paused for a while
-            var t = this;
-
-            var howManyMilliSecsAreAPause = that.settings.howManyMilliSecsAreAPause;
-            var c = $(t).val();
-
-            if (that.settings.trackPauses) {
-              if ((n - $(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause && ($(this).data('userStartedTypingInThisBox'))) {
-                that.settings.track.call(that, elementName, 'paused and continued ', n - $(this).data('lastTimeTypingInThisBox'));
-              }
-            }
-
-            $(t).data('lastTimeTypingInThisBox', n);
-            $(this).data('valueBeforeTyping', $(this).val());
-
-            $(this).data('userStartedTypingInThisBox', true);
           })
 
           $(this).focus(function () {
