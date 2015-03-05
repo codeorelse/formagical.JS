@@ -213,14 +213,12 @@
       return this;
     };
     $.formagical.prototype.defaults = {
-      leaveMessage: 'Je hebt het formulier nog niet verstuurd. Als je nu doorgaat ben je alle ingevulde gegevens kwijt.',
       howManyMilliSecsAreAPause: 1500,
       trackPauses: true,
       track: function (element, type, label, optional) {
         return this.trackInAnalytics(element, type, label, optional);
       }
     };
-
 
     return $.fn.formagical = function (options) {
       return this.each(function () {
