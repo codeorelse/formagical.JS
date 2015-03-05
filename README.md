@@ -1,4 +1,4 @@
-Formagical: form analytics with dashboarding
+Formagical: form analytics without dashboarding
 ==========
 Formagical tracks the behaviour of the user in a form, and sends the data to whatever endpoint. Formagical does not have a dashboard, and its only goal is to log the data to a given endpoint.
 
