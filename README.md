@@ -9,7 +9,7 @@ Formagical tracks the behaviour of the user in a form, and sends the data to wha
 - Or send statistics to whatever tool or endpoint you want
 
 ## Example
-See examples/
+See [http://codeorelse.github.io/formagical/](http://codeorelse.github.io/formagical/)
 
 ## Installation
 ### Using Bower
