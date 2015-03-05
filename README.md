@@ -8,7 +8,20 @@ Formagical tracks the behaviour of the user in a form, and sends the data to wha
 - Send statistics to Google Analytics out of the box
 - Or send statistics to whatever tool or endpoint you want
 
-## Usage without configuration
+## Example
+See examples/
+
+## Installation
+### Using Bower
+```
+bower install formagical --save
+```
+### Manually
+Clone this repository or manually download dist/formagical.min.js, and refer to this file in your main HTML file.
+```
+<script src="path/to/formagical.min.js"></script>
+```
+## Simple usage
 ```
 $('#your-form').formagical()
 ```

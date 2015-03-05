@@ -1,0 +1,26 @@
+{
+  "name": "Formagical",
+  "version": "0.0.9",
+  "homepage": "https://github.com/codeorelse/formagical",
+  "authors": [
+    "codeorelse <siepprivate@gmail.com>"
+  ],
+  "description": "Form analytics without dashboarding",
+  "main": "dist/formagical.min.js",
+  "keywords": [
+    "forms",
+    "analytics",
+    "google",
+    "analytics",
+    "statistics",
+    "user",
+    "behaviour",
+    "cro",
+    "conversion",
+    "testing"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}

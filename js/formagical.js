@@ -51,10 +51,7 @@
           label = 0;
         }
 
-        console.log(type, element, (label / 1024).toFixed(2));
-
         ga('send', 'event', 'formagical', type, element, parseFloat((label / 1024).toFixed(2)));
-
       };
 
       this.callSettingFunction = function (name, args) {
