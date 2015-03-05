@@ -13,6 +13,14 @@ Formagical tracks the behaviour of the user in a form, and sends the data to wha
 $('#your-form').formagical()
 ```
 
+## Options
+| Property        | Type           | Description | Default  |
+| ------------- |-------------| ----------------|-----|
+| howManyMilliSecsAreAPause      | integer | After how many milliseconds of not typing should Formagical consider it a pause? | 1500 |
+| trackPauses      | boolean      | Should we track pauses at all? |   true |
+| track | function      | Callback method when an interaction occured on the form    |
+
+
 ## What does Formagical track exactly?
 Formagical tracks all of the following interactions:
 - User opened a page that has our Formagical on it
@@ -30,14 +38,6 @@ With all these interactions Formagical keeps track of the relatively times that 
 Yeah. Formagical works on every form. Because Formagical uses the *name* attribute of the form element, I strongly recommend to give your form elememts descriptive names.
 
 Also, by default Formagical tries to log the data to the Google Analytics account that is implemented on the page. You can overwrite this tracking method (see below). 
-
-## Options
-| Property        | Type           | Description | Default  |
-| ------------- |:-------------:| ----------------:|-----:|
-| howManyMilliSecsAreAPause      | integer | After how many milliseconds of not typing should Formagical consider it a pause? | 1500 |
-| trackPauses      | boolean      | Should we track pauses at all? |   true |
-| track | function      | Callback method when an interaction occured on the form    |
-
 
 ## Development
 
