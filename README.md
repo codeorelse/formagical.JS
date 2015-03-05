@@ -2,6 +2,12 @@ Formagical: form analytics with dashboarding
 ==========
 Formagical tracks the behaviour of the user in a form, and sends the data to whatever endpoint. Formagical does not have a dashboard, and its only goal is to log the data to a given endpoint.
 
+## Features
+
+- Track how users are using your forms
+- Send statistics to Google Analytics out of the box
+- Or send statistics to whatever tool or endpoint you want
+
 ## Usage without configuration
 ```
 $('#your-form').formagical()
@@ -26,9 +32,12 @@ Yeah. Formagical works on every form. Because Formagical uses the *name* attribu
 Also, by default Formagical tries to log the data to the Google Analytics account that is implemented on the page. You can overwrite this tracking method (see below). 
 
 ### Options
-howManyMilliSecsAreAPause
-trackPauses: true
-track
+| Property        | Type           | Default  |
+| ------------- |:-------------:| -----:|
+| howManyMilliSecsAreAPause      | integer | 1500 |
+| trackPauses      | boolean      |   true |
+| track | function      |     |
+
 
 ## Development
 
