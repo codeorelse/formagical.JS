@@ -2,7 +2,12 @@ Formagical: form analytics with dashboarding
 ==========
 Formagical tracks the behaviour of the user in a form, and sends the data to whatever endpoint. Formagical does not have a dashboard, and its only goal is to log the data to a given endpoint.
 
-### What does Formagical track exactly?
+## Usage without configuration
+```
+$('#your-form').formagical()
+```
+
+## What does Formagical track exactly?
 Formagical tracks all of the following interactions:
 - User opened a page that has our Formagical on it
 - User started using form by interacting with one of its elements
@@ -15,28 +20,27 @@ Formagical tracks all of the following interactions:
 
 With all these interactions Formagical keeps track of the relatively times that passed. 
 
-### Does Formagical work on any form?
+## Does Formagical work on any form?
 Yeah. Formagical works on every form. Because Formagical uses the *name* attribute of the form element, I strongly recommend to give your form elememts descriptive names.
 
 Also, by default Formagical tries to log the data to the Google Analytics account that is implemented on the page. You can overwrite this tracking method (see below). 
 
-### Build
-Formagical uses Grunt to do a build. So before you can do a build, make sure you've got the Grunt CLI globally installed.
-```
-npm install -g grunt-cli
-```
+### Options
+howManyMilliSecsAreAPause
+trackPauses: true
+track
 
-Next, install the dependencies:
-```
-npm install
-```
-Alright. That's it. 
-```
-grunt build
-``` 
-Now the formagical.min.js in /dist is updated. 
+## Development
 
-### Write a custom tracker
+### Prepare your environment
+* Install [Node.js](http://nodejs.org/) and NPM (should come with)
+* Install global dev dependencies: `npm install -g grunt`
+* Install local dev dependencies: `npm install` in repository directory
+
+### Development Commands
+* `grunt build` to jshint and build
+
+## Write a custom tracker
 By default, Formagical sends events to the Google Analytics account that is implemented on the page. You might want to send the data to another endpoint, like Snowplow or your custom server. Well, that's pretty easy. You can overwrite the track method when initiating the Formagical plugin. 
 
 ```javascript
