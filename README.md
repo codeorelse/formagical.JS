@@ -31,12 +31,12 @@ Yeah. Formagical works on every form. Because Formagical uses the *name* attribu
 
 Also, by default Formagical tries to log the data to the Google Analytics account that is implemented on the page. You can overwrite this tracking method (see below). 
 
-### Options
-| Property        | Type           | Default  |
-| ------------- |:-------------:| -----:|
-| howManyMilliSecsAreAPause      | integer | 1500 |
-| trackPauses      | boolean      |   true |
-| track | function      |     |
+## Options
+| Property        | Type           | Description | Default  |
+| ------------- |:-------------:| ----------------:|-----:|
+| howManyMilliSecsAreAPause      | integer | After how many milliseconds of not typing should Formagical consider it a pause? | 1500 |
+| trackPauses      | boolean      | Should we track pauses at all? |   true |
+| track | function      | Callback method when an interaction occured on the form    |
 
 
 ## Development
