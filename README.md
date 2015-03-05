@@ -50,7 +50,7 @@ $('#your-form').formagical({track: window.formagical.yourTracker});
 ```
 
 ### What's the status?
-I've written a very first proof of concept in sloppy jQuery code, just to try it out on some forms and see if the data is useful. And boy, is it useful!  
+After a few beers on a friday night, I've written a very first proof of concept in sloppy jQuery code, just to try it out on some forms and see if the data is useful. And boy, is it useful!  
 
 ### Next steps
 - Start over from scratch with proper code
