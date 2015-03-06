@@ -86,3 +86,4 @@ After a few beers on a friday night, I've written a very first proof of concept 
 
 ### Development Commands
 * `grunt build` to jshint and build
+* `grunt test` to run Jasmine tests
