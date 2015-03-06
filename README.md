@@ -7,6 +7,7 @@ Formagical tracks the behaviour of the user in a form, and sends the data to wha
 - Track how users are using your forms
 - Send statistics to Google Analytics out of the box
 - Or send statistics to whatever tool or endpoint you want
+- Find problemetic fields in your forms & improve the usability
 
 ## Example
 See [http://codeorelse.github.io/formagical/](http://codeorelse.github.io/formagical/)
