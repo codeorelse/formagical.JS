@@ -41,7 +41,7 @@ Formagical tracks all of the following interactions:
 - User enters a certain form element (focus)
 - User leaves a certain form element (unfocus)
 - User starts typing in an certain element (input and textarea only)
-- Users changes the selection of a certain form element (dropdown , radiobutton and checkbox only)
+- Users changes the selection of a certain form element (dropdown, radiobutton and checkbox only)
 - Users pauses typing and continues
 - User submits form
 
@@ -53,7 +53,7 @@ Yeah. Formagical works on every form. Because Formagical uses the *name* attribu
 Also, by default Formagical tries to log the data to the Google Analytics account that is implemented on the page. You can overwrite this tracking method (see below). 
 
 ## Write a custom tracker
-By default, Formagical sends events to the Google Analytics account that is implemented on the page. You might want to send the data to another endpoint, like Snowplow or your custom server. Well, that's pretty easy. You can overwrite the track method when initiating the Formagical plugin. 
+By default, Formagical sends events to the Google Analytics account that is implemented on the page. You might want to send the data to another endpoint, like Snowplow, Site Catalyst or your custom endpoint. Well, that's pretty easy. You can overwrite the track method when initiating the Formagical plugin. 
 
 ```javascript
 (function(formagical) {
