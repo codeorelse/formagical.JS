@@ -159,7 +159,7 @@
           var n = d.getTime();
           that.submitted = true;
           that.settings.track.call(that, 'form', 'submitted', n - that.startTime);
-          return false
+          return true;
         })
 
         this.$element.find('input[type=checkbox]').each(function () {
