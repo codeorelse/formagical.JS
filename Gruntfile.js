@@ -89,5 +89,5 @@ module.exports = function(grunt) {
   grunt.registerTask('build', mainTasks.concat(['uglify']));
 
   // Travis CI task.
-  grunt.registerTask('travis', ['jasmine']);
+  grunt.registerTask('test', ['jasmine']);
 };
