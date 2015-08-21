@@ -1,5 +1,8 @@
 (function () {
   jQuery(function () {
+
+    var $ = $ || jQuery;
+
     $.formagical = function (element, options) {
       var state;
       state = '';
