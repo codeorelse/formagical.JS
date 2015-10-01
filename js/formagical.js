@@ -141,6 +141,15 @@
             jQuery(this).data('valueBeforeFocus', currentValue);
 
             that.settings.track.call(that, elementName, 'focusOut', n - jQuery(this).data('startFocus'), change, jQuery(this).data('elementIndex'));
+
+            if(currentValue === '') {
+              that.settings.track.call(that, elementName, 'focusOutEmpty', n - jQuery(this).data('startFocus'), change, jQuery(this).data('elementIndex'));
+            }
+
+            if(currentValue === '' && previousValue !== '' && typeof previousValue !== 'undefined') {
+              that.settings.track.call(that, elementName, 'focusOutEmptied', n - jQuery(this).data('startFocus'), change, jQuery(this).data('elementIndex'));
+            }
+
           })
 
           jQuery(this).focus(function () {
