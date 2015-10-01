@@ -41,6 +41,8 @@ Formagical tracks all of the following interactions:
 - User started using form by interacting with one of its elements
 - User enters a certain form element (focus)
 - User leaves a certain form element (unfocus)
+- User leaves a certain form element and leaves the field blank (unfocus)
+- User leaves a certain form element and leaves the field blank while it was filled before (unfocus)
 - User starts typing in an certain element (input and textarea only)
 - Users changes the selection of a certain form element (dropdown, radiobutton and checkbox only)
 - Users pauses typing and continues
@@ -58,7 +60,7 @@ By default, Formagical sends events to the Google Analytics account that is impl
 
 ```javascript
 (function(formagical) {
-formagical.yourTracker = function(element, typeOfInteraction, duration) {
+formagical.yourTracker = function(element, typeOfInteraction, duration, optional, elementIndex) {
   // manipulate and send the data to an andpoint of choice
 }})(window.formagical = window.formagical || {});
 
