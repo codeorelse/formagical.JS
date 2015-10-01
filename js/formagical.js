@@ -1,7 +1,7 @@
 (function () {
   jQuery(function () {
 
-    var jQuery = jQuery || jQuery;
+    var jQuery = jQuery || $;
 
     jQuery.formagical = function (element, options) {
       var state;
@@ -39,7 +39,7 @@
           var d = new Date();
           var n = d.getTime();
 
-          this.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'User started using form', n - that.startTime);
+          this.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'User started using form', n - that.startTime, null, jQuery(that.jQueryelement).data('elementIndex'));
         }
 
         mostRecentFocusedElement = element;
@@ -48,7 +48,8 @@
       this.getSetting = function (key) {
         return this.settings[key];
       };
-      this.trackInAnalytics = function (element, type, label, o) {
+
+      this.trackInAnalytics = function (element, type, label, change) {
 
         if (typeof label === 'undefined' || label == NaN) {
           label = 0;
@@ -73,12 +74,11 @@
         this.startTime = n;
         this.elementName = jQuery(that.jQueryelement).attr('name');
 
-        that.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'Form ready for stats');
 
         if (typeof ga === 'undefined')
           throw new Error('Add GA to your page.')
 
-
+        that.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'Form ready for stats');
 
           this.jQueryelement.find('input, textarea').not('[type=checkbox],[type=submit]').each(function () {
               var elementName = jQuery(this).attr('name');
@@ -95,7 +95,7 @@
                   // This is the first time the user typed in this element
                   if (!jQuery(this).data('userStartedTypingInThisBox')) {
                       var msg = 'Started typing';
-                      that.settings.track.call(that, elementName, msg, n - jQuery(this).data('userStartedFocusingAt'));
+                      that.settings.track.call(that, elementName, msg, n - jQuery(this).data('userStartedFocusingAt'), null, jQuery(this).data('elementIndex'));
                   }
 
                   // If user paused for a while
@@ -106,7 +106,7 @@
 
                   if (that.settings.trackPauses) {
                       if ((n - jQuery(t).data('lastTimeTypingInThisBox')) > howManyMilliSecsAreAPause && (jQuery(this).data('userStartedTypingInThisBox'))) {
-                          that.settings.track.call(that, elementName, 'paused and continued ', n - jQuery(this).data('lastTimeTypingInThisBox'));
+                          that.settings.track.call(that, elementName, 'paused and continued ', n - jQuery(this).data('lastTimeTypingInThisBox'), null, jQuery(this).data('elementIndex'));
                       }
                   }
 
@@ -118,6 +118,9 @@
 
           });
 
+        this.jQueryelement.find('input, textarea, select').each(function (index) {
+          jQuery(this).data('elementIndex', index);
+        })
 
         this.jQueryelement.find('input, textarea, select').not('[type=checkbox],[type=submit]').each(function () {
           var elementName = jQuery(this).attr('name');
@@ -137,7 +140,7 @@
 
             jQuery(this).data('valueBeforeFocus', currentValue);
 
-            that.settings.track.call(that, elementName, 'focusOut', n - jQuery(this).data('startFocus'), change);
+            that.settings.track.call(that, elementName, 'focusOut', n - jQuery(this).data('startFocus'), change, jQuery(this).data('elementIndex'));
           })
 
           jQuery(this).focus(function () {
@@ -151,7 +154,7 @@
             that.setMostRecentFocusedElement(elementName);
             jQuery(this).data('startFocus', n);
             jQuery(this).data('valueBeforeFocus', jQuery(this).val());
-            that.settings.track.call(that, elementName, 'focus');
+            that.settings.track.call(that, elementName, 'focus', undefined, null, jQuery(this).data('elementIndex'));
           })
 
         })
@@ -161,7 +164,7 @@
           var d = new Date();
           var n = d.getTime();
           that.submitted = true;
-          that.settings.track.call(that, 'form', 'submitted', n - that.startTime);
+          that.settings.track.call(that, 'form', 'submitted', n - that.startTime, null, jQuery(this).data('elementIndex'));
           return true;
         })
 
@@ -176,7 +179,7 @@
             var changeVal = 'from ' + (previousValue === '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' has not changed' : changeVal;
 
-            that.settings.track.call(that, elementName, 'changed', undefined, change);
+            that.settings.track.call(that, elementName, 'changed', undefined, change, jQuery(this).data('elementIndex'));
             jQuery(this).data('valueBeforeFocus', jQuery(this).prop('checked'));
             that.setMostRecentFocusedElement(elementName);
 
@@ -199,7 +202,7 @@
             var changeVal = 'from ' + (previousValue === '' ? 'nothing' : previousValue) + ' to ' + currentValue;
             var change = (currentValue == previousValue) ? ' has not changed' : changeVal;
 
-            that.settings.track.call(that, elementName, 'changed', timeSinceLastChange, change);
+            that.settings.track.call(that, elementName, 'changed', timeSinceLastChange, change, null, jQuery(this).data('elementIndex'));
 
             jQuery(this).data('valueBeforeFocus', jQuery(this).val());
             jQuery(this).data('lastTimeSelectionTime', n);
@@ -215,7 +218,7 @@
     jQuery.formagical.prototype.defaults = {
       howManyMilliSecsAreAPause: 1500,
       trackPauses: true,
-      track: function (element, type, label, optional) {
+      track: function (element, type, label, optional, index) {
         return this.trackInAnalytics(element, type, label, optional);
       }
     };

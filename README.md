@@ -58,7 +58,7 @@ By default, Formagical sends events to the Google Analytics account that is impl
 
 ```javascript
 (function(formagical) {
-formagical.yourTracker = function(element, typeOfInteraction, duration) {
+formagical.yourTracker = function(element, typeOfInteraction, duration, optional, elementIndex) {
   // manipulate and send the data to an andpoint of choice
 }})(window.formagical = window.formagical || {});
 
