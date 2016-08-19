@@ -4,6 +4,8 @@
     var jQuery = jQuery || $;
 
     jQuery.formagical = function (element, options) {
+
+      debugger;
       var state;
       state = '';
       this.settings = {};
@@ -81,7 +83,7 @@
         that.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'Form ready for stats');
 
           this.jQueryelement.find('input, textarea').not('[type=checkbox],[type=submit]').each(function () {
-              var elementName = jQuery(this).attr('name');
+              var elementName = jQuery(this).attr(that.settings.attributeForName);
               jQuery(this).keydown(function (e) {
                   // Don't log tabs and tabs
                   if(e.keyCode === 9 || e.keyCode == 27) return;
@@ -123,7 +125,7 @@
         })
 
         this.jQueryelement.find('input, textarea, select').not('[type=checkbox],[type=submit]').each(function () {
-          var elementName = jQuery(this).attr('name');
+          var elementName = jQuery(this).attr(that.settings.attributeForName);
 
           // Every item should have name
           if (typeof elementName == 'undefined' || elementName == '') {
@@ -169,7 +171,7 @@
         })
 
         this.jQueryelement.bind('submit', function () {
-          var elementName = jQuery(this).attr('name');
+          var elementName = jQuery(this).attr(that.settings.attributeForName);
           var d = new Date();
           var n = d.getTime();
           that.submitted = true;
@@ -178,7 +180,7 @@
         })
 
         this.jQueryelement.find('input[type=checkbox]').each(function () {
-          var elementName = jQuery(this).attr('name');
+          var elementName = jQuery(this).attr(that.settings.attributeForName);
 
           jQuery(this).bind('change', function () {
             var d = new Date();
@@ -197,7 +199,7 @@
 
         this.jQueryelement.find('select').each(function () {
           jQuery(this).bind('change', function () {
-            var elementName = jQuery(this).attr('name');
+            var elementName = jQuery(this).attr(that.settings.attributeForName);
             var d = new Date();
             var n = d.getTime();
 
@@ -227,7 +229,9 @@
     jQuery.formagical.prototype.defaults = {
       howManyMilliSecsAreAPause: 1500,
       trackPauses: true,
+      attributeForName: 'name',
       track: function (element, type, label, optional, index) {
+
         return this.trackInAnalytics(element, type, label, optional);
       }
     };
