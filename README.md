@@ -33,7 +33,7 @@ $('#your-form').formagical()
 | howManyMilliSecsAreAPause      | integer | After how many milliseconds of not typing should Formagical consider it a pause? | 1500 |
 | trackPauses      | boolean      | Should we track pauses at all? |   true |
 | track | function      | Callback method when an interaction occured on the form    |
-
+| attributeForName | string | Attribute of form element that Formagical should you for the `name` property | 'name' |
 
 ## What does Formagical track exactly?
 Formagical tracks all of the following interactions:
