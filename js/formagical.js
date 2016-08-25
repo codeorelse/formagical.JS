@@ -53,6 +53,10 @@
 
       this.trackInAnalytics = function (element, type, label, change) {
 
+        if (typeof ga === 'undefined') {
+          throw new Error('Add GA to your page.')
+        }
+
         if (typeof label === 'undefined' || label == NaN) {
           label = 0;
         }
@@ -75,10 +79,6 @@
 
         this.startTime = n;
         this.elementName = jQuery(that.jQueryelement).attr('name');
-
-
-        if (typeof ga === 'undefined')
-          throw new Error('Add GA to your page.')
 
         that.settings.track.call(that, jQuery(that.jQueryelement).attr('name'), 'Form ready for stats');
 
