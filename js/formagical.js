@@ -129,7 +129,7 @@
 
           // Every item should have name
           if (typeof elementName == 'undefined' || elementName == '') {
-            throw new Error('Every form element should have a name')
+            throw new Error('Every form element should have a ' + that.settings.attributeForName + ' property.')
           }
 
           jQuery(this).blur(function () {
